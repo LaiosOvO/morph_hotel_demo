@@ -8,7 +8,7 @@ import { truncateAddress } from "@/lib/utils";
 
 export default function Nav() {
   const { isConnected, address } = useAccount();
-  const { open } = useWeb3Modal();
+  const { open, close } = useWeb3Modal();
 
   const handleConnect = () => {
     open();
@@ -20,7 +20,7 @@ export default function Nav() {
         <ul className="flex items-center justify-between">
           <li>
             <Image
-              src="/morphLogo.png"
+              src="/pex.png"
               alt="Morph Logo"
               className="dark:invert"
               width={100}
@@ -30,11 +30,21 @@ export default function Nav() {
           </li>
 
           <li>
+            <h1 className="text-2xl font-bold">Hotel Booking Dapp</h1>
+          </li>
+
+          <li>
             <div className="flex items-center gap-3">
               {!isConnected ? (
                 <Button onClick={handleConnect}>Connect Wallet</Button>
               ) : (
-                <p>{truncateAddress(address)}</p>
+                <>
+                  <p>{truncateAddress(address)}</p>
+                  <Button onClick={ () => {
+                    open();
+                    // close();
+                  } } > Settings </Button>
+                </>
               )}
               <ModeToggle />
             </div>
